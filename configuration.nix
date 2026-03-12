@@ -32,6 +32,8 @@
     enable = true;
     withUWSM = true;
   };
+  programs.hyprland.xwayland.enable = true;
+  programs.uwsm.enable = true;
   programs.direnv.enable = true;
   environment.systemPackages = with pkgs; [
     bluez
@@ -52,6 +54,7 @@
     virt-manager
     virt-viewer
     vulkan-loader
+    walker
     wireplumber
   ];
   fonts.packages = with pkgs; [
@@ -70,6 +73,8 @@
 
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
+  programs.zsh.enable = true;
+  users.users.zen0x.shell = pkgs.zsh;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   services.xserver.xkb = {
     layout = "us";
