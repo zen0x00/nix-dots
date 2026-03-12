@@ -1,0 +1,12 @@
+#!/bin/bash
+
+killall -9 waybar 
+pkill -x swayosd-server
+waybar &
+swayosd-server &
+makoctl reload
+
+(
+    sleep 0.9
+    notify-send "󰑓 Reload Complete" "Waybar, Mako and SwayOSD" 
+) &
