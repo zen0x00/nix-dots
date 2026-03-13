@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-unstable, ... }:
+{ config, pkgs, ... }:
 {
 imports =
   [
@@ -22,29 +22,20 @@ imports =
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
+    withUWSM = true;
   };
 
   programs.direnv.enable = true;
   environment.systemPackages = with pkgs; [
     bluez
-    bridge-utils
-    dnsmasq
     gnome-keyring
-    gvfs
-    irqbalance
     libsecret
     networkmanager
     ntfs3g
     openssh
-    os-prober
     p7zip
     pipewire
-    qemu_full
-    vde2
-    virt-manager
-    virt-viewer
     vulkan-loader
-    walker
     wireplumber
   ];
   fonts.packages = with pkgs; [
@@ -61,8 +52,6 @@ imports =
 
   hardware.bluetooth.enable = true;
   programs.zsh.enable = true;
-  virtualisation.libvirtd.enable = true;
-  programs.virt-manager.enable = true;
   users.users.aman.shell = pkgs.zsh;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   services.xserver.xkb = {

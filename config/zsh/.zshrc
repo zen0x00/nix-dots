@@ -58,7 +58,6 @@ done
 
 # Aliases
 alias i='yay -S'
-alias ls='colorls'
 alias s='yay -Ss'
 alias vim='nvim'
 alias c='clear'
