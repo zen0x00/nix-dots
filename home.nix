@@ -1,40 +1,18 @@
-{ inputs, config, pkgs, lib, ... }:
 
-let
-  dotfiles = "${config.home.homeDirectory}/nix-dots/config";
-  create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
-
-  configs =
-  lib.filterAttrs
-    (name: _: builtins.pathExists "${dotfiles}/${name}")
-    {
-      alacritty = "alacritty";
-      btop = "btop";
-      fastfetch = "fastfetch";
-      hypr = "hypr";
-      kitty = "kitty";
-      nvim = "nvim";
-      swaync = "swaync";
-      swayosd = "swayosd";
-      walker = "walker";
-      waybar = "waybar";
-      zen0x = "zen0x";
-    };
-in
+{ inputs, config, pkgs, ... }:
 
 {
-  imports = [inputs.walker.homeManagerModules.default];
+  imports = [
+    ./modules/hyprland.nix
+  ];
   home.username = "aman";
   home.homeDirectory = "/home/aman";
-  home.sessionPath = [ "$HOME/.local/bin" ];
   programs.git = {
     enable = true;
     settings.user.name = " zen0x";
     settings.user.email = "amanchaitany@proton.me";
   };
-  programs.kitty.enable = true;
   programs.walker = {
-    enable = true;
     runAsService = true; # Note: this option isn't supported in the NixOS module only in the home-manager module
   };
   programs.waybar.enable = true;
@@ -106,27 +84,35 @@ in
     zsh
   ];
 
-  wayland.windowManager.hyprland = {
+  programs.home-manager.enable = true;
+
+  programs.kitty = {
     enable = true;
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-    systemd.enable = false;
+    package = pkgs.kitty;
+    settings = {
+      include = "current-theme.conf";
+      font_size = 14;
+      cursor_trail = 5;
+      scrollback_indicator_opacity = 0;
+      window_padding_width = 20;
+      placement_strategy = "top-left";
+      hide_window_decorations = "yes";
+      resize_debounce_time = "0 0";
+      confirm_os_window_close = 0;
+      background_opacity = 0.8;
+      background_blur = 0;
+      allow_remote_control = "yes";
+      listen_on = "unix:/tmp/kitty";
+      "map shift+cmd+plus" = "change_font_size all +2.0";
+      "map shift+cmd+minus" = "change_font_size all -2.0";
+      "map shift+cmd+backspace" = "change_font_size all 14";
+    };
+    font = {
+      size = 14;
+      name = "JetBrains Mono Nerd Font";
+      package = pkgs.nerd-fonts.jetbrains-mono;
+    };
   };
-
-  xdg.configFile = builtins.mapAttrs
-      (name: subpath: {
-        source = create_symlink "${dotfiles}/${subpath}";
-        recursive = true;
-      })
-      configs;
-
-    home.file.".local/bin" = {
-      source = create_symlink "${dotfiles}/bin";
-      recursive = true;
-    };
-    home.file.".zshrc" = {
-      source = create_symlink "${dotfiles}/zsh/.zshrc";
-    };
 
   home.stateVersion = "25.11";
 }
