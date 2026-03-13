@@ -3,12 +3,6 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-25.11";
-    elephant.url = "github:abenz1267/elephant";
-
-    walker = {
-      url = "github:abenz1267/walker";
-      inputs.elephant.follows = "elephant";
-    };
 
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
@@ -16,7 +10,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, walker, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
     nixosConfigurations.nix-btw = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
 
@@ -28,7 +22,7 @@
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
-            users.zen0x = import ./home.nix;
+            users.aman = import ./home.nix;
             extraSpecialArgs = { inherit inputs; };
             backupFileExtension = "bak";
           };

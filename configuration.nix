@@ -7,7 +7,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  networking.hostName = "nix-btw";
+  networking.hostName = "bit";
   networking.networkmanager.enable = true;
   time.timeZone = "Asia/Kolkata";
   i18n.defaultLocale = "en_IN";
@@ -30,10 +30,8 @@
   services.displayManager.ly.enable = true;
   programs.hyprland = {
     enable = true;
-    withUWSM = true;
   };
   programs.hyprland.xwayland.enable = true;
-  programs.uwsm.enable = true;
   programs.direnv.enable = true;
   environment.systemPackages = with pkgs; [
     bluez
@@ -74,15 +72,15 @@
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
   programs.zsh.enable = true;
-  users.users.zen0x.shell = pkgs.zsh;
+  users.users.aman.shell = pkgs.zsh;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   services.xserver.xkb = {
     layout = "us";
     variant = "";
   };
-  users.users.zen0x = {
+  users.users.aman = {
     isNormalUser = true;
-    description = "zen0x";
+    description = "aman";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [];
   };

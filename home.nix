@@ -1,9 +1,11 @@
 { inputs, config, pkgs, ... }:
 
 {
-  imports = [inputs.walker.homeManagerModules.default];
-  home.username = "zen0x";
-  home.homeDirectory = "/home/zen0x";
+  imports = [
+    ./modules/hyprland.nix
+  ];
+  home.username = "aman";
+  home.homeDirectory = "/home/aman";
   programs.git = {
     enable = true;
     settings.user.name = " zen0x";
@@ -12,7 +14,6 @@
   programs.starship.enable = true;
   programs.zoxide.enable = true;
   programs.fzf.enable = true;
-  programs.walker.enable = true;
   programs.zsh = {
     enable = true;
 
@@ -20,6 +21,7 @@
       ls = "colorls";
       vim = "nvim";
       c = "clear";
+      rebuild = "sudo nixos-rebuild switch --flake ~/nix-dots#nix-btw";
     };
 
     initContent = ''
@@ -92,6 +94,7 @@
     gzip
     imagemagick
     jq
+    kitty
     lldb
     localsend
     mako
@@ -130,11 +133,5 @@
     zoxide
     zsh
   ];
-  home.file.".local/bin".source = ./bin;
-  home.file.".config/hypr".source = ./hypr;
-  home.file.".config/alacritty".source = ./alacritty;
-  home.file.".config/uwsm".source = ./uwsm;
-  wayland.windowManager.hyprland.enable = true; 
-  wayland.windowManager.hyprland.systemd.enable = false;
   home.stateVersion = "25.11";
 }
