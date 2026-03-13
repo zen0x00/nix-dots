@@ -1,9 +1,10 @@
 { config, pkgs, ... }:
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-    ];
+imports =
+  [
+    ./hardware-configuration.nix
+  ];
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -22,16 +23,20 @@
     LC_TELEPHONE = "en_IN";
     LC_TIME = "en_IN";
   };
+
   services.xserver = {
     enable = true;
     autoRepeatInterval = 35;
     autoRepeatDelay = 200;
   };
+
   services.displayManager.ly.enable = true;
   programs.hyprland = {
     enable = true;
+    xwayland.enable = true;
+    withUWSM = true;
   };
-  programs.hyprland.xwayland.enable = true;
+
   programs.direnv.enable = true;
   environment.systemPackages = with pkgs; [
     bluez

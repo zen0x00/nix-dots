@@ -1,11 +1,30 @@
 { inputs, config, pkgs, ... }:
 
+let
+  dotfiles = "${config.home.homeDirectory}/nix-dots/config";
+  create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
+
+  configs = {
+    alacritty = "alacritty";
+    btop = "btop";
+    fastfetch = "fastfetch";
+    hypr = "hypr";
+    kitty = "kitty"
+    nvim = "nvim";
+    swaync = "swaync";
+    swayosd = "swayosd";
+    waybar = "waybar";
+    zen0x = "zen0x";
+  };
+in
+
 {
   imports = [
     ./modules/hyprland.nix
   ];
   home.username = "aman";
   home.homeDirectory = "/home/aman";
+  home.sessionPath = [ "$HOME/.local/bin" ];
   programs.git = {
     enable = true;
     settings.user.name = " zen0x";
@@ -14,61 +33,7 @@
   programs.starship.enable = true;
   programs.zoxide.enable = true;
   programs.fzf.enable = true;
-  programs.zsh = {
-    enable = true;
-
-    shellAliases = {
-      ls = "colorls";
-      vim = "nvim";
-      c = "clear";
-      rebuild = "sudo nixos-rebuild switch --flake ~/nix-dots#nix-btw";
-    };
-
-    initContent = ''
-      fastfetch
-
-      HISTSIZE=50000
-      HISTFILE=~/.zsh_history
-      SAVEHIST=50000
-      HISTDUP=erase
-
-      setopt appendhistory
-      setopt sharehistory
-      setopt hist_ignore_space
-      setopt hist_ignore_all_dups
-      setopt hist_save_no_dups
-      setopt hist_ignore_dups
-
-      zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-      zstyle ':completion:*' list-colors "''${(s.:.)LS_COLORS}"
-      zstyle ':completion:*' menu no
-      zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
-      zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
-
-      ZSH_HIGHLIGHT_STYLES[command]="fg=#f38ba8"
-      ZSH_HIGHLIGHT_STYLES[builtin]="fg=#f38ba8"
-      ZSH_HIGHLIGHT_STYLES[function]="fg=#f38ba8"
-      ZSH_HIGHLIGHT_STYLES[path]="fg=#d4d9eb"
-      ZSH_HIGHLIGHT_STYLES[arg]="fg=#d4d9eb"
-      ZSH_HIGHLIGHT_STYLES[commandseparator]="fg=#d4d9eb"
-      ZSH_HIGHLIGHT_STYLES[unknown-token]="fg=#ff6b6b,bold"
-      ZSH_HIGHLIGHT_STYLES[error]="fg=#ff6b6b,bold"
-      ZSH_HIGHLIGHT_STYLES[quoted]="fg=#ffd16d"
-      ZSH_HIGHLIGHT_STYLES[string]="fg=#ffd16d"
-      ZSH_HIGHLIGHT_STYLES[comment]="fg=#8f929e"
-
-      for map in emacs viins vicmd; do
-        bindkey -M $map '^[[3~' delete-char
-      done
-
-      eval "$(fzf --zsh)"
-      eval "$(zoxide init --cmd cd zsh)"
-      eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/current.omp.json)"
-
-      bindkey '^[b' backward-word
-      bindkey '^[f' forward-word
-    '';
-  };
+  programs.zsh.enable = true;
   home.packages = with pkgs; [
     alacritty
     ani-cli
@@ -103,6 +68,7 @@
     nautilus
     neovim
     ninja
+    nixpkgs-fmt
     nwg-look
     obs-studio
     oh-my-posh
@@ -133,5 +99,22 @@
     zoxide
     zsh
   ];
+  {
+  xdg.configFile = builtins.mapAttrs
+      (name: subpath: {
+        source = create_symlink "${dotfiles}/${subpath}";
+        recursive = true;
+      })
+      configs;
+
+    home.file.".local/bin" = {
+      source = create_symlink "${dotfiles}/bin";
+      recursive = true;
+    };
+    home.file.".zshrc" = {
+      source = create_symlink "${dotfiles}/zsh/.zshrc";
+    };
+  }
+
   home.stateVersion = "25.11";
 }

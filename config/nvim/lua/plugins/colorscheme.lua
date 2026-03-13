@@ -1,0 +1,1 @@
+/home/aman/.config/themes/current/neovim.lua
