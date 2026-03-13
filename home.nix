@@ -9,7 +9,7 @@ let
     btop = "btop";
     fastfetch = "fastfetch";
     hypr = "hypr";
-    kitty = "kitty"
+    kitty = "kitty";
     nvim = "nvim";
     swaync = "swaync";
     swayosd = "swayosd";
@@ -99,7 +99,7 @@ in
     zoxide
     zsh
   ];
-  {
+
   xdg.configFile = builtins.mapAttrs
       (name: subpath: {
         source = create_symlink "${dotfiles}/${subpath}";
@@ -114,7 +114,6 @@ in
     home.file.".zshrc" = {
       source = create_symlink "${dotfiles}/zsh/.zshrc";
     };
-  }
 
   home.stateVersion = "25.11";
 }
