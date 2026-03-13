@@ -1,4 +1,4 @@
-pfetch
+fastfetch
 
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 [ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
@@ -63,20 +63,20 @@ alias s='yay -Ss'
 alias vim='nvim'
 alias c='clear'
 alias clock='tty-clock -C 7 -c'
+alias rebuild='sudo nixos-rebuild switch --flake ~/nix-dots#nix-btw'
 
 
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
-#eval "$(starship init zsh)"
-eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/current.omp.json)"
+eval "$(starship init zsh)"
+#eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/current.omp.json)"
 
 export EDITOR=nvim
 
 export PATH="$PATH:/home/aman/.dotnet/tools"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH=$PATH:~/.spicetify
-export PATH="$HOME/.local/share/gem/ruby/3.4.0/bin:$PATH"
 export PATH="$PATH:$HOME/.bun/bin"
 
 #Yazi

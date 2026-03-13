@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-unstable, ... }:
 {
 imports =
   [
@@ -11,18 +11,6 @@ imports =
   networking.hostName = "bit";
   networking.networkmanager.enable = true;
   time.timeZone = "Asia/Kolkata";
-  i18n.defaultLocale = "en_IN";
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_IN";
-    LC_IDENTIFICATION = "en_IN";
-    LC_MEASUREMENT = "en_IN";
-    LC_MONETARY = "en_IN";
-    LC_NAME = "en_IN";
-    LC_NUMERIC = "en_IN";
-    LC_PAPER = "en_IN";
-    LC_TELEPHONE = "en_IN";
-    LC_TIME = "en_IN";
-  };
 
   services.xserver = {
     enable = true;
@@ -34,7 +22,6 @@ imports =
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
-    withUWSM = true;
   };
 
   programs.direnv.enable = true;
@@ -73,10 +60,9 @@ imports =
   };
 
   hardware.bluetooth.enable = true;
-
+  programs.zsh.enable = true;
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
-  programs.zsh.enable = true;
   users.users.aman.shell = pkgs.zsh;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   services.xserver.xkb = {

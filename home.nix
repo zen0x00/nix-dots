@@ -13,15 +13,14 @@ let
     nvim = "nvim";
     swaync = "swaync";
     swayosd = "swayosd";
+    walker = "walker";
     waybar = "waybar";
     zen0x = "zen0x";
   };
 in
 
 {
-  imports = [
-    ./modules/hyprland.nix
-  ];
+  imports = [inputs.walker.homeManagerModules.default];
   home.username = "aman";
   home.homeDirectory = "/home/aman";
   home.sessionPath = [ "$HOME/.local/bin" ];
@@ -30,10 +29,10 @@ in
     settings.user.name = " zen0x";
     settings.user.email = "amanchaitany@proton.me";
   };
+  programs.walker.enable = true;
   programs.starship.enable = true;
   programs.zoxide.enable = true;
   programs.fzf.enable = true;
-  programs.zsh.enable = true;
   home.packages = with pkgs; [
     alacritty
     ani-cli
@@ -99,6 +98,12 @@ in
     zoxide
     zsh
   ];
+
+  wayland.windowManager.hyprland = {
+    enable = true;
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+  };
 
   xdg.configFile = builtins.mapAttrs
       (name: subpath: {
