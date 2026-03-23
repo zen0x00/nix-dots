@@ -13,8 +13,8 @@
       ];
 
       "$terminal" = "kitty";
-      "$fileManager" = "dolphin";
-      "$menu" = "hyprlauncher";
+      "$fileManager" = "thunar";
+      "$menu" = "rofi -show drun";
       "$mainMod" = "SUPER";
 
       general = {

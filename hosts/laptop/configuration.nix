@@ -37,7 +37,6 @@
     openssh
     kitty
     nixfmt
-    quickshell
   ];
   environment.shells = with pkgs; [ zsh ];
   fonts.packages = with pkgs; [

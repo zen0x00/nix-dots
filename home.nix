@@ -2,9 +2,9 @@
 
 {
   imports = [
-    ./modules/bin.nix
     ./modules/hyprland.nix
     ./modules/kitty.nix
+    ./modules/waybar.nix
     ./modules/zsh.nix
   ];
   home.username = "aman";
