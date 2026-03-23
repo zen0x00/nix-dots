@@ -79,7 +79,7 @@
   ];
 
   # Services
-  services.displayManager.ly.enable = true;
+  services.displayManager.sddm.enable = true;
   services.openssh = {
     enable = true;
   };
@@ -98,4 +98,9 @@
       xdg-desktop-portal-gtk
     ];
   };
+
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 }
