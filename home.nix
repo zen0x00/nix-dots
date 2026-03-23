@@ -19,66 +19,14 @@
   programs.fzf.enableZshIntegration = true;
 
   home.packages = with pkgs; [
-    alacritty
-    ani-cli
-    bat
-    blender
-    bluetui
-    btop
-    brightnessctl
-    cliphist
-    cmake
-    curl
-    dotnet-sdk_11
-    fastfetch
-    fd
-    ffmpeg
-    fzf
-    git
-    git-lfs
-    go
-    gzip
-    imagemagick
-    jq
-    kitty
-    lldb
-    localsend
-    mako
-    mangohud
-    mono
+    brave
     nautilus
-    neovim
-    ninja
-    nixpkgs-fmt
-    nwg-look
-    obs-studio
-    oh-my-posh
-    openrgb
-    pavucontrol
-    playerctl
-    ripgrep
-    rsync
-    ruby
-    sassc
-    satty
-    spotify
-    starship
-    swaynotificationcenter
-    swayosd
-    unityhub
-    unzip
-    vesktop
-    vscode
-    waybar
-    wget
-    wine
-    winetricks
-    wl-clipboard
-    wlogout
-    yad
-    yazi
-    zip
-    zoxide
-    zsh
+    rofi
+    fcitx5
+    hyprpaper
+    hypridle
+    hyprlock
+    hyprpolkitagent
+    kitty
   ];
 }

@@ -1,14 +1,33 @@
 { config, pkgs, ... }:
 {
+  # Imports
   imports = [
     ./hardware-configuration.nix
   ];
+
+  # System
+  system.stateVersion = "25.11";
+  networking.hostName = "bit";
+  time.timeZone = "Asia/Kolkata";
+
+  # Boot
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  networking.hostName = "bit";
+  boot.kernelPackages = pkgs.linuxPackages_zen;
+
+  # Hardware
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
+  hardware.nvidia = {
+    open = true;
+  };
+
+  # Networking
   networking.networkmanager.enable = true;
-  time.timeZone = "Asia/Kolkata";
+
+  # Users
   users.users.aman = {
     isNormalUser = true;
     description = "aman";
@@ -19,40 +38,59 @@
     packages = with pkgs; [ ];
   };
   users.defaultUserShell = pkgs.zsh;
+
+  # Nixpkgs
+  nixpkgs.config.allowUnfree = true;
+
+  # Programs
+  programs.direnv.enable = true;
   programs.firefox.enable = true;
-  services.displayManager.ly.enable = true;
+  programs.gamescope = {
+    enable = true;
+    package = pkgs.gamescope;
+  };
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
     withUWSM = true;
   };
   programs.nix-ld.enable = true;
-  programs.direnv.enable = true;
-  nixpkgs.config.allowUnfree = true;
+  programs.steam = {
+    enable = true;
+    gamescopeSession.enable = false;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+  };
   programs.zsh.enable = true;
+
+  # Environment
   environment.systemPackages = with pkgs; [
+    git
+    nixfmt
+    openssh
     vim
     wget
-    git
-    openssh
-    kitty
-    nixfmt
   ];
   environment.shells = with pkgs; [ zsh ];
+
+  # Fonts
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
   ];
+
+  # Services
+  services.displayManager.ly.enable = true;
   services.openssh = {
     enable = true;
   };
-  hardware.graphics = {
+  services.xserver = {
     enable = true;
-    enable32Bit = true;
-  };
-  hardware.nvidia = {
-    open = true;
+    xkb.layout = "us";
+    xkb.options = "terminate:ctrl_alt_bksp";
+    videoDrivers = [ "nvidia" ];
   };
 
+  # XDG Portal
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
@@ -60,18 +98,4 @@
       xdg-desktop-portal-gtk
     ];
   };
-
-  # Gaming
-  programs.steam = {
-    enable = true;
-    gamescopeSession.enable = false;
-    remotePlay.openFirewall = true;
-    dedicatedServer.openFirewall = true;
-  };
-  programs.gamescope = {
-    enable = true;
-    package = pkgs.gamescope;
-  };
-  services.xserver.videoDrivers = [ "nvidia" ];
-  system.stateVersion = "25.11";
 }

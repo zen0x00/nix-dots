@@ -12,9 +12,13 @@
         "HYPRCURSOR_SIZE,24"
       ];
 
+      exec-once = [
+        "waybar"
+      ];
+
       "$terminal" = "kitty";
-      "$fileManager" = "thunar";
-      "$menu" = "rofi -show drun";
+      "$fileManager" = "nautilus";
+      "$browser" = "brave";
       "$mainMod" = "SUPER";
 
       general = {
@@ -118,14 +122,13 @@
       ];
 
       bind = [
-        "$mainMod,Q,exec,$terminal"
-        "$mainMod,C,killactive,"
-        "$mainMod,M,exec,hyprctl dispatch exit"
-        "$mainMod,E,exec,$fileManager"
-        "$mainMod,V,togglefloating,"
-        "$mainMod,R,exec,$menu"
-        "$mainMod,P,pseudo,"
-        "$mainMod,J,layoutmsg,togglesplit"
+        "$mainMod,RETURN,exec,uwsm-app -- $terminal"
+        "$mainMod,SPACE,exec,rofi -show drun"
+        "$mainMod,W,killactive,"
+        "$mainMod SHIFT,M,exit,"
+        "$mainMod,E,exec,uwsm-app -- $fileManager"
+        "$mainMod SHIFT,V,togglefloating,"
+        "$mainMod SHIFT,F,fullscreen"
 
         "$mainMod,left,movefocus,l"
         "$mainMod,right,movefocus,r"
@@ -154,11 +157,39 @@
         "$mainMod SHIFT,9,movetoworkspace,9"
         "$mainMod SHIFT,0,movetoworkspace,10"
 
-        "$mainMod,S,togglespecialworkspace,magic"
-        "$mainMod SHIFT,S,movetoworkspace,special:magic"
+        "$mainMod,R,submap,resize"
+        "$mainMod SHIFT,H,movewindow,l"
+        "$mainMod SHIFT,L,movewindow,r"
+        "$mainMod SHIFT,K,movewindow,u"
+        "$mainMod SHIFT,J,movewindow,d"
 
         "$mainMod,mouse_down,workspace,e+1"
         "$mainMod,mouse_up,workspace,e-1"
+
+        ",XF86AudioRaiseVolume,exec,quickshell ipc call osd volumeUp"
+        ",XF86AudioLowerVolume,exec,quickshell ipc call osd volumeDown"
+        ",XF86AudioMute,exec,quickshell ipc call osd volumeMute"
+        ",XF86MonBrightnessUp,exec,quickshell ipc call osd brightnessUp"
+        ",XF86MonBrightnessDown,exec,quickshell ipc call osd brightnessDown"
+      ];
+
+      binde = [
+        ",right,resizeactive,10 0"
+        ",left,resizeactive,-10 0"
+        ",up,resizeactive,0 -10"
+        ",down,resizeactive,0 10"
+        ",Return,submap,reset"
+      ];
+
+      submap = [
+        "resize"
+        "reset"
+      ];
+
+      bindd = [
+        "ALT,TAB,Next workspace,workspace,e+1"
+        "SUPER SHIFT,TAB,Previous workspace,workspace,e-1"
+        "SUPER CTRL,TAB,Former workspace,workspace,previous"
       ];
 
       bindm = [
@@ -180,26 +211,6 @@
         ",XF86AudioPause,exec,playerctl play-pause"
         ",XF86AudioPlay,exec,playerctl play-pause"
         ",XF86AudioPrev,exec,playerctl previous"
-      ];
-
-      layerrule = [
-        "blur on, match:namespace zen0x-launcher"
-        "ignore_alpha 0.3, match:namespace zen0x-launcher"
-
-        "blur on, match:namespace zen0x-bar"
-        "ignore_alpha 0.3, match:namespace zen0x-bar"
-
-        "blur on, match:namespace zen0x-powermenu"
-        "ignore_alpha 0.3, match:namespace zen0x-powermenu"
-
-        "blur on, match:namespace zen0x-wallpicker"
-        "ignore_alpha 0.3, match:namespace zen0x-wallpicker"
-
-        "blur on, match:namespace zen0x-island"
-        "ignore_alpha 0.3, match:namespace zen0x-island"
-
-        "blur on, match:namespace zen0x-island-tray"
-        "ignore_alpha 0.3, match:namespace zen0x-island-tray"
       ];
     };
   };
