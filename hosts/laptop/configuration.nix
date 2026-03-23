@@ -72,6 +72,10 @@
     wget
   ];
   environment.shells = with pkgs; [ zsh ];
+  environment.sessionVariables = {
+    XKB_DEFAULT_LAYOUT = "us";
+    XKB_DEFAULT_OPTIONS = "";
+  };
 
   # Fonts
   fonts.packages = with pkgs; [

@@ -3,6 +3,7 @@
 {
   imports = [
     ./modules/hyprland.nix
+    ./modules/hyprpaper.nix
     ./modules/kitty.nix
     ./modules/waybar.nix
     ./modules/zsh.nix

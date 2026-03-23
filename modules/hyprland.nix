@@ -106,6 +106,7 @@
         kb_layout = "us";
         follow_mouse = 1;
         sensitivity = 0;
+        accel_profile = "flat";
 
         touchpad = {
           natural_scroll = false;
@@ -115,10 +116,13 @@
       gesture = "3, horizontal, workspace";
 
       device = [
-        {
-          name = "epic-mouse-v1";
-          sensitivity = -0.5;
-        }
+        "name:at-translated-set-2-keyboard,enabled:false"
+        "name:ideapad-extra-buttons,enabled:false"
+        "name:ite-tech.-inc.-ite-device(8295)-keyboard,enabled:false"
+        "name:power-button,enabled:false"
+        "name:power-button-1,enabled:false"
+        "name:video-bus,enabled:false"
+        "name:ite-tech.-inc.-ite-device(8176)-wireless-radio-control,enabled:false"
       ];
 
       bind = [
@@ -171,19 +175,6 @@
         ",XF86AudioMute,exec,quickshell ipc call osd volumeMute"
         ",XF86MonBrightnessUp,exec,quickshell ipc call osd brightnessUp"
         ",XF86MonBrightnessDown,exec,quickshell ipc call osd brightnessDown"
-      ];
-
-      binde = [
-        ",right,resizeactive,10 0"
-        ",left,resizeactive,-10 0"
-        ",up,resizeactive,0 -10"
-        ",down,resizeactive,0 10"
-        ",Return,submap,reset"
-      ];
-
-      submap = [
-        "resize"
-        "reset"
       ];
 
       bindd = [
