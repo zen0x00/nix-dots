@@ -2,7 +2,10 @@
 
 {
   imports = [
+    ./modules/bin.nix
     ./modules/hyprland.nix
+    ./modules/kitty.nix
+    ./modules/zsh.nix
   ];
   home.username = "aman";
   home.homeDirectory = "/home/aman";
