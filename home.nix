@@ -1,5 +1,4 @@
-
-{ inputs, config, pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [
@@ -7,19 +6,15 @@
   ];
   home.username = "aman";
   home.homeDirectory = "/home/aman";
+  home.stateVersion = "25.11";
   programs.git = {
     enable = true;
     settings.user.name = " zen0x";
     settings.user.email = "amanchaitany@proton.me";
   };
-  programs.walker = {
-    runAsService = true; # Note: this option isn't supported in the NixOS module only in the home-manager module
-  };
-  programs.waybar.enable = true;
-  programs.starship.enable = true;
-  programs.zoxide.enable = true;
-  programs.fzf.enable = true;
-  services.swayosd.enable = true;
+  programs.zsh.enable = true;
+  programs.fzf.enableZshIntegration = true;
+
   home.packages = with pkgs; [
     alacritty
     ani-cli
@@ -83,36 +78,4 @@
     zoxide
     zsh
   ];
-
-  programs.home-manager.enable = true;
-
-  programs.kitty = {
-    enable = true;
-    package = pkgs.kitty;
-    settings = {
-      include = "current-theme.conf";
-      font_size = 14;
-      cursor_trail = 5;
-      scrollback_indicator_opacity = 0;
-      window_padding_width = 20;
-      placement_strategy = "top-left";
-      hide_window_decorations = "yes";
-      resize_debounce_time = "0 0";
-      confirm_os_window_close = 0;
-      background_opacity = 0.8;
-      background_blur = 0;
-      allow_remote_control = "yes";
-      listen_on = "unix:/tmp/kitty";
-      "map shift+cmd+plus" = "change_font_size all +2.0";
-      "map shift+cmd+minus" = "change_font_size all -2.0";
-      "map shift+cmd+backspace" = "change_font_size all 14";
-    };
-    font = {
-      size = 14;
-      name = "JetBrains Mono Nerd Font";
-      package = pkgs.nerd-fonts.jetbrains-mono;
-    };
-  };
-
-  home.stateVersion = "25.11";
 }

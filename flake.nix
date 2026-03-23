@@ -1,50 +1,36 @@
 {
-  description = "My NixOS configuration";
+  description = "Hyprland on Nixos";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-    elephant.url = "github:abenz1267/elephant";
-
+    nixpkgs.url = "nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    walker = {
-      url = "github:abenz1267/walker";
-      inputs.elephant.follows = "elephant";
-    };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: 
-    let
-    system = "x86_64-linux";
-
-    pkgs = import nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      ...
+    }:
+    {
+      nixosConfigurations.bit = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.aman = import ./home.nix;
+              backupFileExtension = "backup";
+            };
+          }
+        ];
+      };
     };
-
-  in
-  {
-    nixosConfigurations.nix-btw = nixpkgs.lib.nixosSystem {
-      inherit system;
-
-      modules = [
-        ./configuration.nix
-        home-manager.nixosModules.home-manager
-
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            users.aman = import ./home.nix;
-            extraSpecialArgs = { inherit inputs; };
-            backupFileExtension = "bak";
-          };
-        }
-      ];
-    };
-  };
 }
