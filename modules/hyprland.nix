@@ -5,7 +5,7 @@
     enable = true;
 
     settings = {
-      monitor = "eDP-1,1920x1080@144,0x0,1";
+      monitor = "DP-1,1920x1080@300,0x0,1";
 
       env = [
         "XCURSOR_SIZE,24"
@@ -15,6 +15,8 @@
       exec-once = [
         "waybar"
         "swww-daemon"
+        "hyprpolkitagent"
+        "hyprctl setcursor Afterglow-Recolored-Catppuccin-Flamingo 24"
       ];
 
       "$terminal" = "kitty";
@@ -108,6 +110,7 @@
         follow_mouse = 1;
         sensitivity = 0;
         accel_profile = "flat";
+        force_no_accel = "true";
 
         touchpad = {
           natural_scroll = false;
@@ -128,6 +131,7 @@
 
       bind = [
         "$mainMod,RETURN,exec,uwsm-app -- $terminal"
+        "$mainMod,B,exec,uwsm-app -- $browser"
         "$mainMod,SPACE,exec,rofi -show drun"
         "$mainMod,W,killactive,"
         "$mainMod SHIFT,M,exit,"

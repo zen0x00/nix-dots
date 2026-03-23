@@ -20,9 +20,6 @@
     enable = true;
     enable32Bit = true;
   };
-  hardware.nvidia = {
-    open = true;
-  };
 
   # Networking
   networking.networkmanager.enable = true;
@@ -44,7 +41,6 @@
 
   # Programs
   programs.direnv.enable = true;
-  programs.firefox.enable = true;
   programs.gamescope = {
     enable = true;
     package = pkgs.gamescope;
@@ -72,6 +68,10 @@
     wget
   ];
   environment.shells = with pkgs; [ zsh ];
+  environment.sessionVariables = {
+    XKB_DEFAULT_LAYOUT = "us";
+    XKB_DEFAULT_OPTIONS = "";
+  };
 
   # Fonts
   fonts.packages = with pkgs; [
@@ -83,7 +83,12 @@
   services.openssh = {
     enable = true;
   };
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver = {
+    enable = true;
+    xkb.layout = "us";
+    xkb.options = "terminate:ctrl_alt_bksp";
+    videoDrivers = [ "amdgpu" ];
+  };
 
   # XDG Portal
   xdg.portal = {
@@ -93,4 +98,9 @@
       xdg-desktop-portal-gtk
     ];
   };
+
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 }

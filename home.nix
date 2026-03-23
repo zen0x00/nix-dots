@@ -20,6 +20,7 @@
   programs.fzf.enableZshIntegration = true;
 
   home.packages = with pkgs; [
+    afterglow-cursors-recolored
     brave
     nautilus
     rofi
@@ -28,7 +29,10 @@
     hypridle
     hyprlock
     hyprpolkitagent
+    nwg-look
     kitty
+    sass
+    sassc
     swww
     vscode
   ];
