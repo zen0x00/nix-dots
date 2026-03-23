@@ -3,8 +3,8 @@
 {
   imports = [
     ./modules/hyprland.nix
-    ./modules/hyprpaper.nix
     ./modules/kitty.nix
+    ./modules/rofi.nix
     ./modules/waybar.nix
     ./modules/zsh.nix
   ];
@@ -29,5 +29,7 @@
     hyprlock
     hyprpolkitagent
     kitty
+    swww
+    vscode
   ];
 }

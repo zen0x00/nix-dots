@@ -14,6 +14,7 @@
 
       exec-once = [
         "waybar"
+        "swww-daemon"
       ];
 
       "$terminal" = "kitty";
@@ -26,8 +27,8 @@
         gaps_out = 20;
         border_size = 2;
 
-        "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-        "col.inactive_border" = "rgba(595959aa)";
+        "col.active_border" = "rgba(4da6ffee) rgba(39c5cfee) 45deg";
+        "col.inactive_border" = "rgba(6e7681aa)";
 
         resize_on_border = false;
         allow_tearing = false;

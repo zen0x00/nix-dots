@@ -44,7 +44,6 @@
 
   # Programs
   programs.direnv.enable = true;
-  programs.firefox.enable = true;
   programs.gamescope = {
     enable = true;
     package = pkgs.gamescope;
@@ -83,7 +82,7 @@
   ];
 
   # Services
-  services.displayManager.sddm.enable = true;
+  services.displayManager.ly.enable = true;
   services.openssh = {
     enable = true;
   };

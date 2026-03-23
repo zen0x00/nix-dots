@@ -10,6 +10,9 @@
       rebuild = "sudo nixos-rebuild switch --flake ~/nixdots#bit";
       vim = "nvim";
       c = "clear";
+      update = "sudo nix flake update";
+      rebuild-bit = "sudo nixos-rebuild switch --flake ~/nixdots#bit";
+      rebuild-byte = "sudo nixos-rebuild switch --flake ~/nixdots#byte";
     };
 
     history = {
